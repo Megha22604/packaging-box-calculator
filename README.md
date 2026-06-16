@@ -24,6 +24,10 @@ The UI is styled with **Bootstrap 5**, **Bootstrap Icons**, and custom CSS for a
 
 ---
 
+## Screen Shots
+<img width="1512" height="734" alt="Screenshot 2026-06-16 150511" src="https://github.com/user-attachments/assets/8f6f504a-aa92-45fc-96b5-c6a251380c8e" />
+
+
 ## ⚙️ Installation
 
 1.cd packaging-app
