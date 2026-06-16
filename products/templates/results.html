@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Packaging Box Calculator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-dark text-light">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-dark bg-black shadow-sm">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold text-light">📦 Packaging Box Calculator</span>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 col-lg-2 sidebar p-3">
+                <h5 class="fw-bold mb-3">Menu</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link"><i class="bi bi-house-door"></i> Dashboard</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link"><i class="bi bi-upload"></i> Upload Product</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link"><i class="bi bi-box"></i> Packaging Results</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link"><i class="bi bi-gear"></i> Settings</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9 col-lg-10">
+                <div class="card shadow-sm p-4 mb-4">
+                    <h5 class="fw-bold mb-3">Upload Product Image & Details</h5>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">Enter product name</label>
+                            {{ form.name }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Upload Image</label>
+                            <div class="upload-box border rounded p-3 text-center">
+                                <i class="bi bi-image fs-1 text-secondary"></i>
+                                <p class="text-muted">Drag & Drop or Browse</p>
+                                {{ form.image }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Calculate Box Size</button>
+                    </form>
+                </div>
+
+                {% if result %}
+                <div class="card shadow-lg p-4">
+                    <h5 class="fw-bold mb-3">Packaging Recommendations</h5>
+                    <div class="row align-items-center">
+                        <div class="col-md-4 text-center">
+                            <img src="{{ result.image }}" class="img-fluid rounded border mb-3" alt="Product image">
+                        </div>
+                        <div class="col-md-8">
+                            <p><strong>Product:</strong> {{ result.name }}</p>
+                            <p><strong>Box Dimensions:</strong> {{ result.box.0 }} × {{ result.box.1 }} × {{ result.box.2 }} cm</p>
+                            <p><strong>Estimated Cost:</strong> ₹{{ result.cost }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
